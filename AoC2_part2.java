@@ -1,6 +1,6 @@
 import java.io.*;
 
-public class AoC2 {
+public class AoC2_part2 {
     public void solve() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
@@ -18,6 +18,7 @@ public class AoC2 {
         long totalScore = 0;
         while((line = br.readLine()).compareTo("*") != 0) {
             String[] inputs = line.split(" ");
+            getAppropriateShape(inputs);
             totalScore += getShpaeScore(inputs[1]);
             totalScore += getRoundResult(inputs);
         }
@@ -28,6 +29,46 @@ public class AoC2 {
         bw.close();
     }
 
+    private void getAppropriateShape(String[] inputs) {
+        /*
+        X: lose
+        Y: draw
+        Z: win
+         */
+        if (inputs[0].compareTo("A") == 0) {
+            if (inputs[1].compareTo("X") == 0) {
+                inputs[1] = "Z";
+            }
+            else if (inputs[1].compareTo("Y") == 0) {
+                inputs[1] = "X";
+            }
+            else if (inputs[1].compareTo("Z") == 0) {
+                inputs[1] = "Y";
+            }
+        }
+        else if (inputs[0].compareTo("B") == 0) {
+            if (inputs[1].compareTo("X") == 0) {
+                inputs[1] = "X";
+            }
+            else if (inputs[1].compareTo("Y") == 0) {
+                inputs[1] = "Y";
+            }
+            else if (inputs[1].compareTo("Z") == 0) {
+                inputs[1] = "Z";
+            }
+        }
+        else if (inputs[0].compareTo("C") == 0) {
+            if (inputs[1].compareTo("X") == 0) {
+                inputs[1] = "Y";
+            }
+            else if (inputs[1].compareTo("Y") == 0) {
+                inputs[1] = "Z";
+            }
+            else if (inputs[1].compareTo("Z") == 0) {
+                inputs[1] = "X";
+            }
+        }
+    }
     private long getShpaeScore(String shape) {
         return switch (shape) {
             case "X" -> 1;
